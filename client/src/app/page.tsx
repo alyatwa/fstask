@@ -9,10 +9,10 @@ import {
 export default async function home() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
+  void (await queryClient.prefetchQuery({
     queryKey: orderKeys.getOrders,
     queryFn: getOrders,
-  });
+  }));
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <OrdersPage />

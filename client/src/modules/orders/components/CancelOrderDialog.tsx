@@ -12,22 +12,29 @@ import {
 } from "@/components/ui/dialog";
 import { useCancelOrder } from "../hooks/api/mutations";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface CancelOrderDialogProps {
   orderId: number;
+  disabled: boolean;
   onCancel?: (orderId: string, withRefund: boolean) => void;
 }
 
 export const CancelOrderDialog: React.FC<CancelOrderDialogProps> = ({
   orderId,
+  disabled,
 }) => {
   const [open, setOpen] = useState(false);
   const { mutateAsync, isPending } = useCancelOrder({
-    onError: (error) => {
+    onError: (error: unknown) => {
       console.error("Error cancelling order:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      toast.error("Failed to cancel order", { description: errorMessage });
     },
     onSuccess: (data) => {
       console.log("Order cancelled successfully:", data);
+      toast.success("Order cancelled successfully");
       setOpen(false);
     },
   });
@@ -37,7 +44,9 @@ export const CancelOrderDialog: React.FC<CancelOrderDialogProps> = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="destructive">Cancel</Button>
+        <Button disabled={disabled} variant="destructive">
+          Cancel
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>

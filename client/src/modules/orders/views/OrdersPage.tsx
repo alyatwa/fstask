@@ -60,7 +60,10 @@ export default function OrdersPage() {
                       <TableCell>{order.status}</TableCell>
                       <TableCell>{order.created_at}</TableCell>
                       <TableCell>
-                        <CancelOrderDialog orderId={order.id} />
+                        <CancelOrderDialog
+                          orderId={order.id}
+                          disabled={order.status === "CANCELLED"}
+                        />
                       </TableCell>
                     </TableRow>
                   ))}

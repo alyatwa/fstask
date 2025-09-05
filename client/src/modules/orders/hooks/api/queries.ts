@@ -7,7 +7,7 @@ export const orderKeys = {
 
 interface Order {
   id: number;
-  status: "pendingPayment" | "confirmed" | "cancelled";
+  status: "CONFIRMED" | "CANCELLED";
   amount_cents: number;
   created_at: string;
   updated_at: string;
