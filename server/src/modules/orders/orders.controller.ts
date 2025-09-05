@@ -1,12 +1,6 @@
 import { Controller, Get, Param, Body, HttpCode, Patch } from '@nestjs/common';
-import { OrderResponse, OrdersService } from './orders.service';
-
-interface CancelOrderResponse {
-  id: number;
-  status: string;
-  refunded: boolean;
-  store_balance_cents?: number;
-}
+import { OrdersService } from './orders.service';
+import { CancelOrderResponse, OrderResponse } from './orders.types';
 
 @Controller('/api/')
 export class OrdersController {

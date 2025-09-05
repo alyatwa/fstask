@@ -7,29 +7,7 @@ import { Repository, DataSource } from 'typeorm';
 import { OrderEntity } from '../../database/entities/order.entity';
 import { StoreEntity } from '../../database/entities/store.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-
-export interface OrderResponse {
-  id: number;
-  status: 'PENDING' | 'CONFIRMED' | 'CANCELLED';
-  amount_cents: number;
-  created_at: string;
-  updated_at: string;
-  customer: {
-    id: number;
-    name: string;
-  };
-  store: {
-    id: number;
-    name: string;
-  };
-}
-
-interface CancelOrderResponse {
-  id: number;
-  status: string;
-  refunded: boolean;
-  store_balance_cents?: number;
-}
+import { CancelOrderResponse, OrderResponse } from './orders.types';
 
 @Injectable()
 export class OrdersService {
